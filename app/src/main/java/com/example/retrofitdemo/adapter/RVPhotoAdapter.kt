@@ -1,6 +1,4 @@
 package com.example.retrofitdemo.adapter
-
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,12 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.CircleCropTransformation
-
 import com.example.retrofitdemo.R
 import com.example.retrofitdemo.ShowImage
 import com.example.retrofitdemo.models.PhotosList
-import com.squareup.picasso.Picasso
 
 class RVPhotoAdapter(private val mList: PhotosList) : RecyclerView.Adapter<RVPhotoAdapter.ViewHolder>() {
     private var _context:Context? = null
@@ -28,18 +23,17 @@ class RVPhotoAdapter(private val mList: PhotosList) : RecyclerView.Adapter<RVPho
         return ViewHolder(view)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        holder.textViewPhotoTitle.text = "Title:   ${mList?.get(position)?.title}"
-        holder.textViewPhotoId.text = "Id:   ${mList?.get(position)?.id.toString()}"
-        holder.imageView.load(mList.get(position).url) {
+        holder.textViewPhotoTitle.text = "Title:   ${mList[position].title}"
+        holder.textViewPhotoId.text = "Id:   ${mList[position].id}"
+        holder.imageView.load(mList[position].url) {
             crossfade(true)
             placeholder(R.drawable.ic_launcher_foreground)
-            transformations(CircleCropTransformation())
+
         }
         holder.imageView.setOnClickListener{
             val intent = Intent(_context, ShowImage::class.java)
             val bundle = Bundle()
-            bundle.putString("image_url", mList?.get(position)?.url)
+            bundle.putString("image_url", mList[position].url)
             intent.putExtras(bundle)
             _context?.startActivity(intent)
         }
@@ -53,7 +47,6 @@ class RVPhotoAdapter(private val mList: PhotosList) : RecyclerView.Adapter<RVPho
         val imageView: ImageView = itemView.findViewById(R.id.iv_photo)
         val textViewPhotoTitle: TextView = itemView.findViewById(R.id.tv_photo_title)
         val textViewPhotoId: TextView = itemView.findViewById(R.id.tv_photo_id)
-        val textViewThumbUrl: TextView = itemView.findViewById(R.id.tv_photo_title)
 
     }
 }

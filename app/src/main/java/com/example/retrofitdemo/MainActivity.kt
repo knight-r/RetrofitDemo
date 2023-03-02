@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding.refreshLayout.setOnRefreshListener {
             when(mainBinding.tabLayout.selectedTabPosition){
                 0-> getMyData()
-                1->getPhotos()
+                1-> getPhotos()
             }
             mainBinding.refreshLayout.isRefreshing = false
         }
@@ -69,9 +69,7 @@ class MainActivity : AppCompatActivity() {
             setMyDataListInRecyclerView(myDataListObject as DataClass)
             return
         }
-        val mProgressDialog = ProgressDialog(this)
-        mProgressDialog.setMessage("Loading...")
-        mProgressDialog.show()
+
         val retrofitService = getRetrofitClient().getPost()
         retrofitService.enqueue(object : Callback<DataClass?> {
             override fun onResponse(call: Call<DataClass?>, response: Response<DataClass?>){
@@ -80,7 +78,6 @@ class MainActivity : AppCompatActivity() {
                     myDataListObject = myDataList
                 }
                 setMyDataListInRecyclerView(myDataList)
-                mProgressDialog.cancel()
 
             }
 
