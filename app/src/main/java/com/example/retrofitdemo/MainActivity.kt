@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainBinding.root)
         setupViewPager()
         setupTabLayout()
-        mainBinding.viewPager.visibility = View.GONE
 
         mainBinding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -65,6 +64,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMyData() {
+        // checking the data in the cache memory
         if(myDataListObject!=null && myDataListObject.size>0) {
             setMyDataListInRecyclerView(myDataListObject as DataClass)
             return
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPhotos() {
-        if((photoListObject != null) && (photoListObject.size > 0)) {
+        if(photoListObject.size > 0) {
             setPhotoListInRecyclerView(photoListObject as PhotosList)
             return
         }
